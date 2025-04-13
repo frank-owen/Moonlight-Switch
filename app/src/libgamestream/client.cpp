@@ -490,16 +490,16 @@ int gs_start_app(PSERVER_DATA server, STREAM_CONFIGURATION* config, int appId,
                  "https://%s:%u/"
                  "launch?uniqueid=%s&appid=%d&mode=%dx%dx%d&additionalStates=1&"
                  "sops=%d&rikey=%s&rikeyid=%d&localAudioPlayMode=%d&"
-                 "surroundAudioInfo=%d&remoteControllersBitmap=%d&gcmap=%d%s",
+                 "surroundAudioInfo=%d&remoteControllersBitmap=%d&gcmap=%d",
                  server->serverInfo.address, server->httpsPort, unique_id.c_str(), appId,
                  config->width, config->height, fps, sops, rand.hex().bytes(),
                  rikeyid, localaudio, (mask << 16) + channelCounnt,
-                 gamepad_mask, gamepad_mask, LiGetLaunchUrlQueryParameters());
+                 gamepad_mask, gamepad_mask);
     } else {
         snprintf(url, sizeof(url),
-                 "https://%s:%u/resume?uniqueid=%s&rikey=%s&rikeyid=%d%s",
+                 "https://%s:%u/resume?uniqueid=%s&rikey=%s&rikeyid=%d",
                  server->serverInfo.address, server->httpsPort, unique_id.c_str(),
-                 rand.hex().bytes(), rikeyid, LiGetLaunchUrlQueryParameters());
+                 rand.hex().bytes(), rikeyid);
     }
 
     if ((ret = http_request(url, &data, HTTPRequestTimeoutLong)) == GS_OK) {
